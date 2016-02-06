@@ -1,0 +1,14 @@
+/nbproject/private/
+/nbproject/
+/contributing.md
+/index.php
+/composer.json
+/system/
+/application/language/
+/application/helpers/
+/application/cache/
+/application/core/
+/application/hooks/
+/application/logs/
+/application/config/
+/application/third_party/
