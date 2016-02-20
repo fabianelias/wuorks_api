@@ -30,7 +30,7 @@ class Register_model extends CI_Model {
             "ip_addresses"  =>      $ip_addresses
         );
 
-        $this->db->insert("keys", $data);
+        $this->db->insert("ws_keys", $data);
         return $key;
     }
 
