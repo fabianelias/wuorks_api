@@ -130,5 +130,44 @@ Class Profession extends REST_Controller{
            
        }
     }
+    
+    
+    /***************************************************************************
+     * 
+     *                  Sección tres, retorno de info,etc.
+     * 
+     **************************************************************************/
+    
+    /***************************************************************************
+     * @infoProfession(), función que retorna la info de la profession elegida
+     * y la información del usuario.
+     **************************************************************************/
+    
+    public function infoProfession_get(){
+        
+        //Validar parametros get
+        if(!$this->get("wuorks_key")){
+            $this->response(NULL, 400);
+        }
+        if(!$this->get("key_profession")){
+            $this->response(NULL, 400);
+        }
+        
+        //Asignación de variables
+        $wuorks_key     = $this->get("wuorks_key");
+        $key_profession = $this->get("key_profession");
+        
+        $info = $this->professionModel->infoProfession($wuorks_key, $key_profession);
+        
+        if($info){
+            
+            $this->response($info, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
 }
 

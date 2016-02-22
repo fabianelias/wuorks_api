@@ -68,6 +68,59 @@ Class Profession_model extends CI_Model{
         return $query;
        
     }
+    
+    
+    /***************************************************************************
+     * @infoProfession(), función para retornar la info una profesión y usuario
+     **************************************************************************/
+    public function infoProfession($wuorks_key, $key_profession){
+        
+        $this->db->select('*');
+        $this->db->join('ws_user_information as ui', "p.id_user = ui.id_user", "left");
+        $this->db->join("ws_user as u", "ui.id_user = u.id_user", "left");
+        $this->db->where('p.key_profession', $key_profession);
+        $this->db->where('u.wuorks_key', $wuorks_key);
+        
+        $query = $this->db->get("ws_profession as p");
+        
+        if($query->num_rows() > 0){
+            
+            foreach ($query->result_array() as $row){
+                
+                $this->db->select("*");
+                $this->db->where("id_profession", $row["id_ profession"]);
+                $query2 = $this->db->get("ws_rating");
+                
+                $rating = $query2->result_array();
+                
+                $infoProfession[] = array(
+                    "username"        => $row["username"],
+                    "email"           => $row["email"],
+                    "wuorks_key"      => $row["wuorks_key"],
+                    "user_type"       => $row["user_type"],
+                    "type_account"    => $row["type_account"],
+                    "create_time"     => $row["create_time"],
+                    "name_profession" => $row["name_profession"],
+                    "job_description" => $row["job_description"],
+                    "workplace"       => $row["workplace"],
+                    "key_profession"  => $row["key_profession"],
+                    "avatar"          => $row["avatar"],
+                    "rating"          => $rating,
+                    "address"         => $row["address"],
+                    "commune"         => $row["commune"],
+                    "region"          => $row["region"],
+                    
+                );
+                
+                
+            }
+            return $infoProfession;
+        }else{
+            
+            return false;
+            
+        }
+    }
 }
  
 
