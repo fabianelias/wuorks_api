@@ -23,8 +23,8 @@ class Register extends REST_Controller{
      * @register_get(), función 1 de registro.
      * http://localhost/wuorks_api/Register/register/name/".$name."/last_name_p/".$last_name_p."/last_name_m/".$last_name_m."/email/".$email."/password/".$password."./type_account/".$type_account."/key/WBqyGRGuRHHTEIZwTuJfFvPgyhCHZ67GCmtlAxdT"
      **************************************************************************/
-    public function registerUser_get(){
-        
+    public function registerUser_post(){
+        /*
         //Validar parametros get
         if(!$this->get("name")){
             $this->response(NULL, 400);
@@ -43,23 +43,29 @@ class Register extends REST_Controller{
         }
         if(!$this->get("type_account")){
             $this->response(NULL, 400);
+        }*/
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+	
+	parse_str(file_get_contents('php://input'), $newUser); //Recibir por post los datos de la empresa  
+	
         }
         
         //Asignación de variables
         
         //Parametros para tbl ws_user_information
-        $name         = $this->get("name");
-        $last_name_p  = $this->get("last_name_p");
-        $last_name_m  = $this->get("last_name_m");
+        $name         = $newUser["name"];//$this->get("name");
+        $last_name_p  = $newUser["last_name_p"];//$this->get("last_name_p");
+        $last_name_m  = $newUser["last_name_m"];//$this->get("last_name_m");
         $key_api      = $this->generate_token();
         
         //Parametros para tbl ws_user
         $username     = $this->username($name, $last_name_p);
-        $email        = $this->get("email");
-        $password     = $this->get("password");
+        $email        = $newUser["email"];//$this->get("email");
+        $password     = $newUser["password"];//$this->get("password");
         $wuorks_key   = $this->wuorks_key();
-        $user_type    = 0; //Usuario freemium
-        $type_account = $this->get("type_account");
+        $user_type    = $newUser["user_type"]; //Usuario freemium
+        $type_account = 0;//$this->get("type_account");
+        $state        = $newUser["state"];
         
         $register = $this->registerModel->register_user($name,
                                                         $last_name_p,
@@ -70,7 +76,8 @@ class Register extends REST_Controller{
                                                         $password,
                                                         $wuorks_key,
                                                         $user_type,
-                                                        $type_account);
+                                                        $type_account,
+                                                        $state);
         
         if($register){
             
@@ -87,9 +94,10 @@ class Register extends REST_Controller{
     /***************************************************************************
      * @username(), función para crear un username único.
      ***************************************************************************/
-    public function username($name, $last_name_p){
+    public function username($name, $last_name_p = ""){
         
         $n = strtolower($name);
+        $n = str_replace(" ", "", $n);
         $l = strtoupper($last_name_p);
         $l = substr($l, 0,1);
         $id = rand(999, 9999);
@@ -142,7 +150,10 @@ class Register extends REST_Controller{
         {
             $token .= $chars[mt_rand(0, $num_chars)];
         }
-        return $token;
+        
+        //Api key de uso
+        $api_key = "WBqyGRGuRHHTEIZwTuJfFvPgyhCHZ67GCmtlAxdT";
+        return $api_key;//$token;
     }
     
     

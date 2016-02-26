@@ -27,7 +27,8 @@ class Register_model extends CI_Model {
                                   $password,
                                   $wuorks_key,
                                   $user_type,
-                                  $type_account){
+                                  $type_account,
+                                  $state){
         
         //Paso 1: Crear registro en tbl ws_user
         
@@ -37,7 +38,8 @@ class Register_model extends CI_Model {
             "password"     => $password,
             "wuorks_key"   => $wuorks_key,
             "user_type"    => $user_type,       //Profesional o empresa 
-            "type_account" => $type_account     //Premium o Freemium
+            "type_account" => $type_account,     //Premium o Freemium
+            "state"        => $state
         );
         
         $this->db->insert("ws_user", $ws_user); //Registro del usuario en ws_user
