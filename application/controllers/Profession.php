@@ -169,5 +169,35 @@ Class Profession extends REST_Controller{
             
         }
     }
+    
+    
+    /***************************************************************************
+     * 
+     *        Sección cuatro, retorno de info para perfil del usuario
+     * 
+     **************************************************************************/
+    
+    public function professions_get(){
+        
+        //Validar parametros get
+        if(!$this->get("id_user")){
+            $this->response(NULL, 400);
+        }
+        
+        $id_user = $this->get("id_user");
+        
+        $info    = $this->professionModel->infoProfessions($id_user);
+        
+        if($info){
+            
+            $this->response($info, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
+    
 }
 

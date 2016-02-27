@@ -57,7 +57,7 @@ class Register_model extends CI_Model {
             "avatar"      => "wuorks-not-avatar.png"
         );
         
-        $this->db->insert("ws_user_information", $ws_user_information);
+        $r = $this->db->insert("ws_user_information", $ws_user_information);
         
         //Paso 3: Crear registro de la Api-key en ws_key
         
@@ -69,7 +69,7 @@ class Register_model extends CI_Model {
             "ip_addresses"   => ""
         );
         
-        $this->db->insert("ws_keys", $ws_keys);
+        //$this->db->insert("ws_keys", $ws_keys);
         
         //Paso 4: Crear Registro de la Api-key en ws_access
         
@@ -78,7 +78,7 @@ class Register_model extends CI_Model {
             "controller" => "/"
         );
         
-        $r = $this->db->insert("ws_access", $ws_access);
+        //$r = $this->db->insert("ws_access", $ws_access);
         
         
         return $r;

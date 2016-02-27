@@ -10,7 +10,7 @@ require(APPPATH.'/libraries/REST_Controller.php');
 
 Class Company extends REST_Controller{
     
-    public function __contruct(){
+    public function __construct(){
         
         parent::__construct();
         
@@ -111,15 +111,19 @@ Class Company extends REST_Controller{
         $company_description = $company["company_description"];
         $address             = $company["address"];
         $company_category    = $company["company_category"];
-        $key_company         = $company["key_company"];
+        //$key_company         = $company["key_company"];
         $id_user             = $company["id_user"];
+        $region              = $company["region"];
+        $commune             = $company["commune"];
         
         $edit = $this->companyModel->edit_company( $company_name,
                                                    $company_description,
                                                    $address,
                                                    $company_category,
-                                                   $key_company,
-                                                   $id_user);
+                                                   //$key_company,
+                                                   $id_user,
+                                                   $region,
+                                                   $commune);
         
         if($edit){
             
@@ -131,4 +135,32 @@ Class Company extends REST_Controller{
             
         }
     }
+    
+    
+    /***************************************************************************
+     * 
+     *              Sección dos , obtener un perfil de empresa
+     * 
+     **************************************************************************/
+    
+    
+    /***************************************************************************
+     * @info_company(), función para editar un perfil de empresa.
+     **************************************************************************/
+    public function company_get(){
+        
+        $id_user = $this->get("id_user");
+        
+        $info    = $this->companyModel->myCompany($id_user);
+        
+        if($info){
+            
+            $this->response($info, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+        }
+    }
+    
 }
