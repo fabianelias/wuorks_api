@@ -45,13 +45,17 @@ Class Company extends REST_Controller{
         $company_category    = $company["company_category"];
         $key_company         = $this->key_company();
         $id_user             = $company["id_user"];
+        $region              = $company["region"];
+        $commune             = $company["commune"];
         
         $create = $this->companyModel->create_company($company_name,
                                                       $company_description,
                                                       $address,
                                                       $company_category,
                                                       $key_company,
-                                                      $id_user);
+                                                      $id_user,
+                                                      $region,
+                                                      $commune);
         
         if($create){
             

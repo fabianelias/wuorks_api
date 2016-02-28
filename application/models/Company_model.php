@@ -24,7 +24,9 @@ Class Company_model extends CI_Model{
                                     $address,
                                     $company_category,
                                     $key_company,
-                                    $id_user){
+                                    $id_user,
+                                    $region,
+                                    $commune){
         
         //Crear array
         
@@ -34,7 +36,9 @@ Class Company_model extends CI_Model{
             "address"             => $address,
             "company_category"    => $company_category,
             "key_company"         => $key_company,
-            "id_user"             => $id_user
+            "id_user"             => $id_user,
+            "region"              => $region,
+            "commune"             => $commune
         );
         
         $query = $this->db->insert("ws_company", $company);
