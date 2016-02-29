@@ -68,6 +68,19 @@ Class User_model extends CI_Model{
         return $this->db->update("ws_user",$pass);
         
     }
+    
+    /***************************************************************************
+     *@change_avatar(),
+     **************************************************************************/
+    public function change_avatar($imagen, $id_user){
+        
+        $avatar = array("avatar" => $imagen);
+        
+        $this->db->where("id_user",$id_user);
+        
+        return $this->db->update("ws_user_information",$avatar);
+        
+    }
     /***************************************************************************
      * @infoUser(), función que retorna la info del usuario
      **************************************************************************/

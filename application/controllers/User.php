@@ -96,6 +96,28 @@ Class User extends REST_Controller{
             
         }
     }
+    
+    /***************************************************************************
+     * @change_avatar(); función para cambiar la imagen de perfil.
+     **************************************************************************/
+    public function change_avatar_get(){
+        
+        $imagen  = $this->get("image");
+        $id_user = $this->get("id_user");
+        
+        $change  = $this->userModel->change_avatar($imagen, $id_user);
+        
+        if($change){
+            
+            $this->response($change, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
+    
     /***************************************************************************
      * 
      *                  Sección dos, retorna info de usuario
@@ -117,4 +139,6 @@ Class User extends REST_Controller{
             $this->response(NULL, 400);
         }
     }
+    
+    
 }
