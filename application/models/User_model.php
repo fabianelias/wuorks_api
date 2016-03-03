@@ -94,11 +94,29 @@ Class User_model extends CI_Model{
         if($sql_1->num_rows() > 0){
             
             $data = $sql_1->result_array();
-
+            
+            //buscar nombre region
+            $this->db->select("nombre as nombre");
+            $this->db->where("id_region",$data[0]["region"]);
+            $query  = $this->db->get("regiones");
+            $region = $query->row()->nombre;
+           
+            //buscar nombre comuna
+            $this->db->select("nombre as nombre");
+            $this->db->where("id",$data[0]["commune"]);
+            $query2  = $this->db->get("comunas");
+            $comuna = $query2->row()->nombre;
+            $data2 = array(
+                "region_nom" => $region,
+                "comuna_nom" => $comuna
+            );
+            //$data = array_merge($data, $data2);
                 //Correcto
                 $res = array(
-                    'res'  => (int)1,
-                    'data' => $data
+                    'res'        => (int)1,
+                    'data'       => $data,
+                    'region_nom' => $region,
+                    'comuna_nom' => $comuna
                 ); 
                 
             

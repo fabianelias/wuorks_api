@@ -29,6 +29,13 @@ Class Search_model extends CI_Model{
     
     public function search_profession($wuork_area, $region){
         
+        //Buscar el nombre de la region con $region
+        $this->db->select("nombre as nombre");
+        $this->db->where("id_region",$region);
+        $query = $this->db->get("regiones");
+        
+        //$region = $query->row()->nombre;
+        
         $this->db->select('*');
         $this->db->join('ws_user_information as ui', "p.id_user = ui.id_user", "left");
         $this->db->join("ws_user as u", "ui.id_user = u.id_user", "left");
