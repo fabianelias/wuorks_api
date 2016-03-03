@@ -47,7 +47,7 @@ Class User extends REST_Controller{
         $region            = $user["region"];
         $birth_date        = $user["birth_date"];
         $gender            = $user["gender"];
-        $avatar            = $user["avatar"];
+        //$avatar            = $user["avatar"];
         $id_user           = $user["id_user"];
         
         
@@ -62,7 +62,7 @@ Class User extends REST_Controller{
                                              $region,
                                              $birth_date,
                                              $gender,
-                                             $avatar,
+                                             //$avatar,
                                              $id_user);
         
         if($edit){
@@ -75,4 +75,70 @@ Class User extends REST_Controller{
             
         }
     }
+    
+    /***************************************************************************
+     * @change_pass(), función para editar la contraseña
+     **************************************************************************/
+    public function change_pass_get(){
+        
+        $password = $this->get("password");
+        $id_user  = $this->get("id_user");
+        
+        $change   = $this->userModel->change_pass($password, $id_user);
+        
+        if($change){
+            
+            $this->response($change, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
+    
+    /***************************************************************************
+     * @change_avatar(); función para cambiar la imagen de perfil.
+     **************************************************************************/
+    public function change_avatar_get(){
+        
+        $imagen  = $this->get("image");
+        $id_user = $this->get("id_user");
+        
+        $change  = $this->userModel->change_avatar($imagen, $id_user);
+        
+        if($change){
+            
+            $this->response($change, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
+    
+    /***************************************************************************
+     * 
+     *                  Sección dos, retorna info de usuario
+     * 
+     **************************************************************************/
+    
+    public function infoUser_get(){
+        
+        $id_user = $this->get("id_user");
+        
+        $info = $this->userModel->infoUser($id_user);
+        
+        if($info){
+            
+            $this->response($info, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+        }
+    }
+    
+    
 }

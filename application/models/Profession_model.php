@@ -121,6 +121,45 @@ Class Profession_model extends CI_Model{
             
         }
     }
+    
+    
+    /***************************************************************************
+     * @infoProfessions(), función para retonar las profesiones de un usuario.
+     **************************************************************************/
+    public function infoProfessions($id_user){
+        
+        $this->db->select('*');
+        $this->db->where('id_user', $id_user);
+        $query = $this->db->get("ws_profession");
+        
+        if($query->num_rows() > 0){
+            
+            foreach ($query->result_array() as $row){
+                
+                $this->db->select("*");
+                $this->db->where("id_profession", $row["id_ profession"]);
+                $query2 = $this->db->get("ws_rating");
+                
+                $rating = $query2->result_array();
+                
+                $infoProfessions[] = array(
+                    "name_profession" => $row["name_profession"],
+                    "job_description" => $row["job_description"],
+                    "workplace"       => $row["workplace"],
+                    "key_profession"  => $row["key_profession"],
+                    "rating"          => $rating
+                    
+                );
+                
+                
+            }
+            return $infoProfessions;
+        }else{
+            
+            return 1;
+            
+        }
+    }
 }
  
 
