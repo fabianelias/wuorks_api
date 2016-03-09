@@ -95,6 +95,7 @@ Class Profession_model extends CI_Model{
                 
                 $infoProfession[] = array(
                     "username"        => $row["username"],
+                    "id_user"         => $row["id_user"],
                     "email"           => $row["email"],
                     "wuorks_key"      => $row["wuorks_key"],
                     "user_type"       => $row["user_type"],
