@@ -12,6 +12,7 @@ Class User_model extends CI_Model{
         
         parent::__construct();
         
+        error_reporting(0);
     }
     
     /***************************************************************************
@@ -96,7 +97,7 @@ Class User_model extends CI_Model{
             $data = $sql_1->result_array();
             
             //buscar nombre region
-            $this->db->select("nombre as nombre");
+            $this->db->select("nombre");
             $this->db->where("id_region",$data[0]["region"]);
             $query  = $this->db->get("regiones");
             $region = $query->row()->nombre;
