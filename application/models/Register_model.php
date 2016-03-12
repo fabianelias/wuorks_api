@@ -108,4 +108,31 @@ class Register_model extends CI_Model {
             
         }
     }
+    
+     /***************************************************************************
+     * @verify_account(), función para validar si existe el email ingresado en el
+     * registro.
+     **************************************************************************/
+    public function verify_account($email){
+        
+        $this->db->select("username, id_user");
+        $this->db->where("MD5(email)","'".$email."'",FALSE);
+        
+        $query = $this->db->get("ws_user");
+        
+        if($query->num_rows() > 0){
+            
+            $id_user = $query->row()->id_user;
+            
+            $up = array("state" => 1);
+            $this->db->where("id_user",$id_user);
+            $this->db->update("ws_user",$up);
+            return true;
+            
+        }else{
+            
+            return false;
+            
+        }
+    }
 }

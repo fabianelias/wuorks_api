@@ -192,5 +192,32 @@ class Register extends REST_Controller{
             
         }
     } 
+    
+    
+    
+    /***************************************************************************
+     * @verify_account(), función para verificar el email par activar la cuenta
+     ***************************************************************************/
+    public function verify_account_get(){
+        //Validar parametros GET
+        if(!$this->get("email")){
+            $this->response(NULL, 400);
+        }
+        
+        //Asignación de variables
+        $email  = $this->get("email");
+        
+        $verify = $this->registerModel->verify_account($email);
+        
+        if($verify){
+            
+            $this->response($verify, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
 }
 
