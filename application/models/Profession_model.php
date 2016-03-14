@@ -11,7 +11,7 @@ Class Profession_model extends CI_Model{
     public function __construct() {
         
         parent::__construct();
-        
+        error_reporting(0);
     }
     
     /***************************************************************************
@@ -88,7 +88,8 @@ Class Profession_model extends CI_Model{
             foreach ($query->result_array() as $row){
                 
                 $this->db->select("*");
-                $this->db->where("id_profession", $row["id_ profession"]);
+                $this->db->where("id_profession", $row["id_profession"]);
+                $this->db->order_by("id_rating","desc");
                 $query2 = $this->db->get("ws_rating");
                 
                 $rating = $query2->result_array();

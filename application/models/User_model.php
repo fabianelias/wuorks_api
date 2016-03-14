@@ -133,4 +133,88 @@ Class User_model extends CI_Model{
         
         return $res;
     }
+    
+    /***************************************************************************
+     * @recuperar_pass();
+     ***************************************************************************/
+    public function recuperar_pass($email){
+        
+        $this->db->select("*");
+        $this->db->where("email",$email);
+        $query1 = $this->db->get("ws_user");
+        
+        if($query1->num_rows() > 0 ){
+            
+            //ingresamos el registro a la tabla de log de recuperacion de password.
+            $data1 = array(
+                "token" => $this->token(),
+                "email" => $email,
+                "state" => (int) 0
+            );
+            $this->db->insert("ws_recu_pass",$data1);
+            
+            $info  = $query1->result_array();
+            
+            foreach($info as $row){
+                
+                $data = array(
+                    "email" => $row["email"],
+                    "pass"  => $row["password"],
+                    "token" => $data1["token"]
+                );
+                return $data;
+            }
+            
+        }else{
+            
+            return false;
+            
+        }
+    }
+    
+    /***************************************************************************
+     * @verify_token(), funcion para verificar un token y su estado
+     ***************************************************************************/
+    public function verify_token($token){
+        
+        $this->db->select("*");
+        $this->db->where("token",$token);
+        $this->db->where("state",0);
+        $query = $this->db->get("ws_recu_pass");
+        
+        if($query->num_rows() > 0 ){
+            
+            $data = array("state" => 1);
+            $this->db->where("token",$token);
+            $this->db->update("ws_recu_pass",$data);
+            
+            return true;
+            
+        }else{
+            
+            return false;
+            
+        }
+    }
+    
+    /***************************************************************************
+     * @token(), funcion que genera un token unico para recuperar clave
+     ***************************************************************************/
+    public function token($length=45,$uc=TRUE,$n=TRUE,$sc=FALSE){
+        
+        $source = 'abcdefghijklmnopqrstuvwxyz';
+            if($uc==1) $source .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if($n==1) $source .= '1234567890';
+            if($sc==1) $source .= '|@#~$%()=^*+[]{}-_';
+            if($length>0){
+                    $key_job = "";
+                    $source = str_split($source,1);
+                    for($i=1; $i<=$length; $i++){
+                            mt_srand((double)microtime() * 1000000);
+                            $num = mt_rand(1,count($source));
+                            $key_job .= $source[$num-1];
+                    }
+            }
+            return $key_job;
+    }
 }

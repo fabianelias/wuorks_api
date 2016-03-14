@@ -141,4 +141,49 @@ Class User extends REST_Controller{
     }
     
     
+    /***************************************************************************
+     * @recu_pass(), funcion para recuperar la password
+     ***************************************************************************/
+    public function recu_pass_post(){
+        
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+	
+	parse_str(file_get_contents('php://input'), $email);
+	
+        }
+        $email1 = $email["email"];// $this->get("email");
+        
+        $recu = $this->userModel->recuperar_pass($email1);
+        
+        if($recu){
+            
+            $this->response($recu, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
+    
+    /***************************************************************************
+     * @verify_token()
+     ***************************************************************************/
+    public function verify_token_get(){
+        
+        $token = $this->get("token");
+        
+        $existe = $this->userModel->verify_token($token);
+        
+        if($existe){
+            
+            $this->response($existe, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
+    
 }
