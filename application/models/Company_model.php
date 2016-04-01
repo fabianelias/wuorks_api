@@ -13,6 +13,8 @@ Class Company_model extends CI_Model{
         
         parent::__construct();
         
+        error_reporting(0);
+        
     }
     
     /***************************************************************************
@@ -58,16 +60,17 @@ Class Company_model extends CI_Model{
                                   $company_category,
                                   //$key_company,
                                   $id_user,
-                                  $commune,
-                                  $region){
+                                  $region,
+                                  $commune
+                                  ){
         
         $company = array(
             "company_name"        => $company_name,
             "company_description" => $company_description,
             "address"             => $address,
             "company_category"    => $company_category,
-            "region"              => $region,
-            "commune"             => $commune
+            "commune"             => $commune,
+            "region"              => $region
         );
         
         
@@ -94,11 +97,24 @@ Class Company_model extends CI_Model{
             
             $row = $query->result_array();
             
-                $this->db->select("*");
-                $this->db->where("id_company", $row[0]["id_company"]);
-                $query2 = $this->db->get("ws_rating");
+            //buscar nombre region
+            $this->db->select("nombre as nombre");
+            $this->db->where("id_region",$row[0]["region"]);
+            $query11  = $this->db->get("regiones");
+            $region = $query11->row()->nombre;
+           
+            //buscar nombre comuna
+            $this->db->select("nombre as nombre");
+            $this->db->where("id",$row[0]["commune"]);
+            $query22  = $this->db->get("comunas");
+            $comuna = $query22->row()->nombre;
+            
+            
+            $this->db->select("*");
+            $this->db->where("id_company", $row[0]["id_company"]);
+            $query2 = $this->db->get("ws_rating");
                 
-                $rating = $query2->result_array();
+            $rating = $query2->result_array();
                 
                 $infoCompany[] = array(
                     "company_name"        => $row[0]["company_name"],
@@ -109,9 +125,13 @@ Class Company_model extends CI_Model{
                     "create_time"         => $row[0]["create_time"],
                     "region"              => $row[0]["region"],
                     "commune"             => $row[0]["commune"],
-                    "rating"              => $rating
+                    "rating"              => $rating,
+                    "region_nom"          => $region,
+                    "comuna_nom"          => $comuna
                 );
+                
                 return $infoCompany;
+                
         }else{
             
             return  false;

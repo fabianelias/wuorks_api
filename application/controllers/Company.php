@@ -105,7 +105,7 @@ Class Company extends REST_Controller{
         
         if($_SERVER['REQUEST_METHOD'] == "POST"){
 	
-	parse_str(file_get_contents('php://input'), $company); //Recibir por post los datos de la empresa  
+            parse_str(file_get_contents('php://input'), $company); //Recibir por post los datos de la empresa  
 	
         }
         
