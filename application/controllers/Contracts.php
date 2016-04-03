@@ -15,6 +15,7 @@ Class Contracts extends REST_Controller{
         
         $this->load->model("contract_model", "contractModel");
         
+        error_reporting(0);
     }
     
     

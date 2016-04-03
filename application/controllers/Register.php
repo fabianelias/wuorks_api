@@ -67,6 +67,7 @@ class Register extends REST_Controller{
         $type_account = 0;//$this->get("type_account");
         $state        = $newUser["state"];
         $newletter    = $newUser["newletter"];
+        $gender       = $newUser["gender"];
         
         $register = $this->registerModel->register_user($name,
                                                         $last_name_p,
@@ -79,7 +80,9 @@ class Register extends REST_Controller{
                                                         $user_type,
                                                         $type_account,
                                                         $state,
-                                                        $newletter);
+                                                        $newletter,
+                                                        $gender
+                                                        );
         
         if($register){
             
