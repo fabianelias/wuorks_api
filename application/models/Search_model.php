@@ -1,7 +1,11 @@
 <?php
 /*******************************************************************************
  * 
- *                  Modelo para resuldos de busquedas
+ *                  Modelo para resultados de busquedas
+ * 
+ * Notas*: última actualización de algoritmo de busqueda :04-04-2016.
+ *         -Mejoras: Poder generar un mejor selección de posibles usuarios.
+ *         -Recojer los nombres de la región y comuna en cada script de busqueda.
  * 
  ******************************************************************************/
 
@@ -15,7 +19,7 @@ Class Search_model extends CI_Model{
     
     /***************************************************************************
      * @search(), retorna usuarios según criterios del usuario.
-     **************************************************************************/
+    **************************************************************************/
     
     public function search($wuork_area, $region){
         
@@ -26,6 +30,11 @@ Class Search_model extends CI_Model{
         return $results;
         
     }
+    
+    /***************************************************************************
+     * @search_profession(), retorna los usuarios con perfil de profesionales en
+     * base a region y area en filtro de busqueda.
+    ****************************************************************************/
     
     public function search_profession($wuork_area, $region){
         
@@ -40,6 +49,7 @@ Class Search_model extends CI_Model{
         $this->db->join('ws_user_information as ui', "p.id_user = ui.id_user", "left");
         $this->db->join("ws_user as u", "ui.id_user = u.id_user", "left");
         $this->db->like('name_profession', $wuork_area,'both');
+        $this->db->or_like('job_description', $wuork_area,'both');
         $this->db->where('ui.region',$region);
         
         $query = $this->db->get("ws_profession as p");
@@ -78,6 +88,12 @@ Class Search_model extends CI_Model{
         }
         
     }
+    
+    /***************************************************************************
+     * @search_company(), retornar usuarios con el perfil de empresas, según 
+     * región y area ingresada por el usuario.
+    ***************************************************************************/
+    
     public function search_company($wuork_area,$region){
         
        /* //Buscar el nombre de la region con $region
@@ -90,6 +106,7 @@ Class Search_model extends CI_Model{
         $this->db->join('ws_user_information as ui', "c.id_user = ui.id_user", "left");
         $this->db->join("ws_user as u", "ui.id_user = u.id_user", "left");
         $this->db->like('c.company_category', $wuork_area,'both');
+        $this->db->like('c.company_description', $wuork_area,'both');
         $this->db->where('c.region',$region);
         
         $query = $this->db->get("ws_company as c");
