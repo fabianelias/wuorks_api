@@ -105,7 +105,7 @@ Class Company extends REST_Controller{
         
         if($_SERVER['REQUEST_METHOD'] == "POST"){
 	
-	parse_str(file_get_contents('php://input'), $company); //Recibir por post los datos de la empresa  
+            parse_str(file_get_contents('php://input'), $company); //Recibir por post los datos de la empresa  
 	
         }
         
@@ -167,4 +167,34 @@ Class Company extends REST_Controller{
         }
     }
     
+    /***************************************************************************
+     * @company_info(), función para retornar la info completa de un perfil de 
+     * empresa.
+     **************************************************************************/
+    public function company_info_get(){
+        
+        //Validar parametros get
+        if(!$this->get("wuorks_key")){
+            $this->response(NULL, 400);
+        }
+        if(!$this->get("key_company")){
+            $this->response(NULL, 400);
+        }
+        
+        //Asignación de variables
+        $wuorks_key     = $this->get("wuorks_key");
+        $key_company = $this->get("key_company");
+        
+        $company = $this->companyModel->company_info($wuorks_key, $key_company);
+        
+        if($company){
+            
+            $this->response($company, 200);
+            
+        }else{
+            
+            $this->response(NULL, 200);
+            
+        }
+    }
 }
