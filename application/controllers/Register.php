@@ -15,6 +15,11 @@ class Register extends REST_Controller{
         parent::__construct();
         
         $this->load->model("register_model", "registerModel");
+        $this->load->library('email');
+        $this->load->library('email_templates');
+        
+        $this->url_base = "http://beta.wuorks.com/";
+        
     }
     protected $methods = array(
         
@@ -85,6 +90,31 @@ class Register extends REST_Controller{
                                                         );
         
         if($register){
+            
+        
+            
+            $this->email->initialize(array(
+            'charset'  => 'utf-8',
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp-relay.sendinblue.com',
+            'smtp_user' => 'contacto@wuorks.com',
+            'smtp_pass' => 'VvNS9bGj1pfxXDQg',//ecadc75f6235396dee1e4b89e68d69c43c08a876
+            'smtp_port' => 587,
+            'mailtype' => 'html',
+            'crlf' => "\r\n",
+            'newline' => "\r\n"
+            ));
+            
+            $token = md5($email);
+            $rand  = rand(999999, 9999999);
+            $url_verificacion = $this->url_base."oauth/verify_account/".$token."/".$rand;
+
+            $this->email->from('noreply@wuorks.com', 'WUORKS | El profesional que necesitas.');
+            $this->email->to($email);
+            $this->email->subject($name.' te damos la ¡Bienvenida! a Wuorks.com el portal de servicios');
+            $this->email->message($this->email_templates->email_confirm($url_verificacion,$name),TRUE);
+            $this->email->send();
+
             
             $this->response($register, 200);
             

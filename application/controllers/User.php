@@ -17,6 +17,11 @@ Class User extends REST_Controller{
         
         $this->load->model("user_model", "userModel");
         
+        $this->load->library('email');
+        $this->load->library('email_templates');
+        
+        $this->url_base = "http://beta.wuorks.com/";
+        
     }
     
     
@@ -156,6 +161,26 @@ Class User extends REST_Controller{
         $recu = $this->userModel->recuperar_pass($email1);
         
         if($recu){
+            
+            $this->email->initialize(array(
+            'charset'  => 'utf-8',
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp-relay.sendinblue.com',
+            'smtp_user' => 'contacto@wuorks.com',
+            'smtp_pass' => 'VvNS9bGj1pfxXDQg',
+            'smtp_port' => 587,
+            'mailtype' => 'html',
+            'crlf' => "\r\n",
+            'newline' => "\r\n"
+            ));
+            
+            $url_verificacion = $this->url_base."wuokers/new_password/".$recu["token"]."/".$recu["pass"]."/".$recu["email"];
+
+            $this->email->from('noreply@wuorks.com', 'WUORKS | El profesional que necesitas.');
+            $this->email->to($email1);
+            $this->email->subject('Solicitud cambio contraseña');
+            $this->email->message($this->email_templates->pass($url_verificacion,""),TRUE);
+            $this->email->send();
             
             $this->response($recu, 200);
             
