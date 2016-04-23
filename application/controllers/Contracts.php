@@ -28,13 +28,64 @@ Class Contracts extends REST_Controller{
        $key_service  = $this->get("key_service");
        $key_contract = $this->key_contract();
        
+       $nomProf = $this->get('nomProf');
+       
        $contract     = $this->contractModel->create_contract($key_employee,
                                                              $key_employer,
                                                              $key_service,
                                                              $key_contract
                                                              );
+       
        if($contract){
-           
+            
+            $pro_info_user = $this->contractModel->infoUser($key_employee); // info del contratado.
+            
+            $info_contratador = $this->contractModel->infoUser($key_employer); // info del contratador.
+            
+            $this->email->initialize(array(
+            'charset'  => 'utf-8',
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp-relay.sendinblue.com',
+            'smtp_user' => 'contacto@wuorks.com',
+            'smtp_pass' => 'VvNS9bGj1pfxXDQg',
+            'smtp_port' => 587,
+            'mailtype' => 'html',
+            'crlf' => "\r\n",
+            'newline' => "\r\n"
+            ));
+            
+            // mail al contratador
+            $this->email->from('noreply@wuorks.com', 'WUORKS | El profesional que necesitas.');
+            $this->email->to($info_contratador['data'][0]['email']);
+            $this->email->subject('WUORKS, Haz contrato a '.$pro_info_user["data"][0]["username"]);
+            echo $this->email->message("   
+                    <h4>Hola <p style='color:#666';>".$info_contratador["data"][0]["username"].",</h4><br/>
+                        Haz solicitado la profesión de ".$pro_info_user["data"][0]["username"].", se le ha enviado tu email y número telefonico
+                        para contactarte.<br/>
+                        <hr/>
+                        <br>
+                        Suerte,<br/>
+                        Equipo Wuorks
+                    ");
+            $this->email->send();
+              
+            //Email al contratado
+            $this->email->from('noreply@wuorks.com', 'WUORKS | El profesional que necesitas.');
+            $this->email->to($pro_info_user["data"][0]["email"]);
+            $this->email->subject('WUORKS, Felicidades! te han contratado.');
+            $this->email->message("   
+                    <h4>Hola <p style='color:#666';>".$pro_info_user["data"][0]["username"].",</h4><br/>
+                        ".$info_contratador["data"][0]["username"].", ha solicitado tu profesión '".$nomProf."'., a continuación los datos para contactarlo.<br/>
+                        Email: ".$info_contratador["data"][0]['email'].".<br/>
+                        Numero: ".$info_contratador["data"][0]['cell_phone_number']."<br/>
+                        Nombre: ".$info_contratador["data"][0]['name']." ".$info_contratador["data"][0]['last_name_p']."  
+                        <hr/>
+                        <br>
+                        Suerte,<br/>
+                        Equipo Wuorks
+                    ");
+            $this->email->send();
+             
            $this->response($contract, 200);
            
        }else{

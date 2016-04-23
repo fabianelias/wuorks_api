@@ -91,7 +91,7 @@ class Register_model extends CI_Model {
         
         //$r = $this->db->insert("ws_access", $ws_access);
         
-        
+           
         return $r;
         
     }
