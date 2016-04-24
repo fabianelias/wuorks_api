@@ -435,7 +435,7 @@ Class Email_templates{
 																<tr> 
 																	<td align="center" height="45" c-style="not6ButBG" bgcolor="#4edeb5" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; padding-left: 30px; padding-right: 30px; font-weight: bold; font-family: Helvetica, Arial, sans-serif; color: #ffffff;" t-style="not6ButText" mc:edit="42">
 																		<multiline><span style="font-family:"proxima_nova_rgbold", Helvetica; font-weight: normal;">
-																			<a href="'.$url_confirm.'" style="color: #ffffff; font-size:15px; text-decoration: none; line-height:34px; width:100%;" t-style="not6ButText" object="link-editable">Cambiar contraseña</a>
+																			<a href="'.$url_pass.'" style="color: #ffffff; font-size:15px; text-decoration: none; line-height:34px; width:100%;" t-style="not6ButText" object="link-editable">Cambiar contraseña</a>
 																		<!--[if !mso]><!--></span><!--<![endif]--></multiline>
 																	</td> 
 																</tr> 
