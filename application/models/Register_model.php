@@ -30,7 +30,8 @@ class Register_model extends CI_Model {
                                   $type_account,
                                   $state,
                                   $newletter,
-                                  $gender
+                                  $gender,
+                                  $id_social
                                   ){
         
         //Paso 1: Crear registro en tbl ws_user
@@ -43,7 +44,8 @@ class Register_model extends CI_Model {
             "user_type"    => $user_type,       //Profesional o empresa 
             "type_account" => $type_account,     //Premium o Freemium
             "state"        => $state,
-            "newletter"    => $newletter
+            "newletter"    => $newletter,
+            "id_social"    => $id_social
         );
         
         $this->db->insert("ws_user", $ws_user); //Registro del usuario en ws_user
@@ -51,12 +53,16 @@ class Register_model extends CI_Model {
         //Paso 2: Crear registro en tbl ws_user_information
         
         $id_user = $this->db->insert_id();
-        
-        if($gender == 1){
-            $photo = "wuorks_avatar_men.png";
+        if($id_social == NULL){
+            if($gender == 1){
+                $photo = "wuorks_avatar_men.png";
+            }else{
+                $photo = "wuorks_avatar_woman.png";
+            }
         }else{
-            $photo = "wuorks_avatar_woman.png";
+            $photo = $id_social.".jpg";
         }
+        
         
         $ws_user_information = array(
             "name"        => $name,

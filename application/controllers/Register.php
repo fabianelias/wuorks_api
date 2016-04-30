@@ -18,7 +18,7 @@ class Register extends REST_Controller{
         $this->load->library('email');
         $this->load->library('email_templates');
         
-        $this->url_base = "http://beta.wuorks.com/";
+        $this->url_base = "http://www.wuorks.cl/";
         
     }
     protected $methods = array(
@@ -73,7 +73,7 @@ class Register extends REST_Controller{
         $state        = $newUser["state"];
         $newletter    = $newUser["newletter"];
         $gender       = $newUser["gender"];
-        
+        $id_social    = $newUser["id_social"];
         $register = $this->registerModel->register_user($name,
                                                         $last_name_p,
                                                         $last_name_m,
@@ -86,7 +86,8 @@ class Register extends REST_Controller{
                                                         $type_account,
                                                         $state,
                                                         $newletter,
-                                                        $gender
+                                                        $gender,
+                                                        $id_social
                                                         );
         
         if($register){
