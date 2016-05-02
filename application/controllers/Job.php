@@ -31,30 +31,30 @@ Class Job extends REST_Controller{
         }
         
         //Asignación de variables
-        
-        $title             = $job["title"];
-        $job_description   = $job["job_description"];
-        $workplace         = $job["workplace"];
-        $remuneration      = $job["remuneration"];
-        $workday           = $job["workday"];
-        $applicants_amount = $job["applicants_amount"];
-        $tags_work_area    = $job["tags_work_area"];
-        $type_job          = $job["type_job"];
+        $title        = $job['title'];
+        $description  = $job['description'];
+        $remuneration = $job['remuneration'];
+        $applicants_amount = $job['applicants_amount'];
+        $tipo_aviso        = $job['tipo_aviso'];
+        $genero            = $job['genero'];
+        $horario           = $job['horario'];
+        $zona              = $job['zona'];
         $key_job           = $this->key_job();
         $id_user           = $job["id_user"];
+       
         
         $create = $this->jobModel->create_job( $title,
-                                               $job_description,   
-                                               $workplace   ,
+                                               $description,  
                                                $remuneration,
-                                               $workday,
                                                $applicants_amount,
-                                               $tags_work_area,
-                                               $type_job,
+                                               $tipo_aviso,
+                                               $genero,
+                                               $horario,
+                                               $zona,
                                                $key_job,
                                                $id_user
                                                 );
-        
+       
         if($create){
             
             $this->response($create, 200);
@@ -142,5 +142,68 @@ Class Job extends REST_Controller{
         }
         
         
+    }
+    
+    
+    
+    /***************************************************************************
+     * @getMyJob(), función para obtener info basica de los jobs de del usuario
+     **************************************************************************/
+    public function getMyJobs_get(){
+        
+        $id_user = $this->get('id_user');
+        
+        $jobs = $this->jobModel->getMyJobs($id_user);
+        
+        if($jobs){
+            
+            $this->response($jobs, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
+    
+    
+    /***************************************************************************
+     * @infoJob(), funcion retorna la info un aviso en particular
+     **************************************************************************/
+    public function infoJob_get(){
+        
+        $key_aviso = $this->get('key_aviso');
+        
+        $info = $this->jobModel->infoJob($key_aviso);
+        
+        if($info){
+            
+            $this->response($info, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
+    
+    /***************************************************************************
+     * @matchesWuokers(), retorn los usuarios que calzen con el minijob
+     **************************************************************************/
+    public function matchesWuokers_get(){
+        
+        $key_aviso = $this->get('key_aviso');
+        
+        $matches = $this->jobModel->matches($key_aviso);
+        
+        if($matches){
+            
+            $this->response($matches, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
     }
 }
