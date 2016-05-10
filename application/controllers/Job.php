@@ -73,7 +73,7 @@ Class Job extends REST_Controller{
      * @key_job(), función para crear una key unica para el empleo.
      **************************************************************************/
     
-    public function key_job($length=15,$uc=TRUE,$n=TRUE,$sc=FALSE){
+    public function key_job($length=10,$uc=TRUE,$n=TRUE,$sc=FALSE){
         
         $source = 'abcdefghijklmnopqrstuvwxyz';
             if($uc==1) $source .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -205,5 +205,40 @@ Class Job extends REST_Controller{
             $this->response(NULL, 400);
             
         }
+    }
+    
+    
+    /***************************************************************************
+     * @getJobs(), retorna todos los MiniJobs en estado 0.
+     **************************************************************************/
+    public function getJobs_get(){
+        
+        $jobs = $this->jobModel->getJobs();
+        
+        if($jobs){
+            $this->response($jobs, 200);
+        }else{
+            $this->response(NULL, 400);
+        }
+        
+        
+    }
+    
+    /****************************************************************************
+     * @aplicar(),
+     ***************************************************************************/
+    public function aplicar_get(){
+        
+        $key_aviso = $this->get('key_aviso');
+        $key_user  = $this->get('key_user');
+        
+        $aplicar = $this->jobModel->aplicar($key_aviso, $key_user);
+        
+        if($aplicar){
+            $this->response($aplicar, 200);
+        }else{
+            $this->response(NULL, 400);
+        }
+        
     }
 }
