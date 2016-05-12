@@ -22,13 +22,20 @@ Class Contracts extends REST_Controller{
     /***************************************************************************
      * @create_contract(), funciòn para crear un contracto entre usuarios.
      **************************************************************************/
-    public function create_contract_get(){
-       $key_employee = $this->get("key_employee");
-       $key_employer = $this->get("key_employer");
-       $key_service  = $this->get("key_service");
+    public function create_contract_post(){
+        
+       if($_SERVER['REQUEST_METHOD'] == "POST"){
+	
+	parse_str(file_get_contents('php://input'), $contract); 
+	
+       }
+       
+       $key_employee = $contract["key_employee"];//$this->get("key_employee");
+       $key_employer = $contract["key_employer"];//$this->get("key_employer");
+       $key_service  = $contract["key_service"];//$this->get("key_service");
        $key_contract = $this->key_contract();
        
-       $nomProf = $this->get('nomProf');
+       $nomProf = $contract["nomProf"];//$this->get('nomProf');
        
        $contract     = $this->contractModel->create_contract($key_employee,
                                                              $key_employer,
