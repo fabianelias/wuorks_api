@@ -67,6 +67,18 @@ Class Search_model extends CI_Model{
             
             foreach ($query->result_array() as $row){
                 
+                //buscar nombre region
+                $this->db->select("nombre");
+                $this->db->where("id_region",$row["region"]);
+                $query  = $this->db->get("regiones");
+                $region = $query->row()->nombre;
+
+                //buscar nombre comuna
+                $this->db->select("nombre as nombre");
+                $this->db->where("id",$row["commune"]);
+                $query22  = $this->db->get("comunas");
+                $comuna = $query22->row()->nombre;
+            
                 $this->db->select_avg("user_rating");
                 $this->db->where("id_profession", $row["id_profession"]);
                 $this->db->order_by('user_rating','DESC');
@@ -84,8 +96,8 @@ Class Search_model extends CI_Model{
                     "avatar"          => $row["avatar"],
                     "rating"          => number_format($rating[0]["user_rating"],1),//$rating,
                     "address"         => $row["address"],
-                    "commune"         => $row["commune"],
-                    "region"          => $row["region"],
+                    "commune"         => $comuna,//$row["commune"],
+                    "region"          => $region,//$row["region"],
                     "type"            => 1
                 );
                 
@@ -130,6 +142,19 @@ Class Search_model extends CI_Model{
             
             foreach ($query->result_array() as $row){
                
+                //buscar nombre region
+                $this->db->select("nombre");
+                $this->db->where("id_region",$row["region"]);
+                $query  = $this->db->get("regiones");
+                $region = $query->row()->nombre;
+
+                //buscar nombre comuna
+                $this->db->select("nombre as nombre");
+                $this->db->where("id",$row["commune"]);
+                $query22  = $this->db->get("comunas");
+                $comuna = $query22->row()->nombre;
+                
+                
                 $this->db->select_avg("user_rating");
                 $this->db->where("id_company", $row["id_company"]);
                 $query2 = $this->db->get("ws_rating");
@@ -145,8 +170,8 @@ Class Search_model extends CI_Model{
                     "avatar"          => $row["avatar"],
                     "rating"          => number_format($rating[0]["user_rating"],1),//$rating,
                     "address"         => $row["address"],
-                    "commune"         => $row["commune"],
-                    "region"          => $row["region"],
+                    "commune"         => $comuna,//$row["commune"],
+                    "region"          => $region,//$row["region"],
                     "type"            => 2
                 );
                 
