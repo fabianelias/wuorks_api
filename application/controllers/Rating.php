@@ -15,7 +15,7 @@ Class Rating extends REST_Controller{
         parent::__construct();
         
         $this->load->model("rating_model", "ratingModel");
-        
+        error_reporting(0);
     }
     
     /***************************************************************************

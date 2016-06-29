@@ -19,7 +19,7 @@ class Register extends REST_Controller{
         $this->load->library('email_templates');
         
         $this->url_base = "http://www.wuorks.cl/";
-        
+        error_reporting(0);
     }
     protected $methods = array(
         

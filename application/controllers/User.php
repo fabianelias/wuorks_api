@@ -20,8 +20,8 @@ Class User extends REST_Controller{
         $this->load->library('email');
         $this->load->library('email_templates');
         
-        $this->url_base = "http://beta.wuorks.com/";
-        
+        $this->url_base = "https://www.wuorks.cl/";
+        error_reporting(0);
     }
     
     

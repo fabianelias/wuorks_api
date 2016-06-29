@@ -12,7 +12,7 @@ class Register_model extends CI_Model {
         parent::__construct();
         
         $this->load->database();
-        
+        error_reporting(0);
     }
     
     /***************************************************************************

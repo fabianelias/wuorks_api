@@ -15,7 +15,7 @@ Class Search extends REST_Controller{
         parent::__construct();
         
         $this->load->model("search_model", "searchModel");
-        
+        error_reporting(0);
     }
     
     /***************************************************************************

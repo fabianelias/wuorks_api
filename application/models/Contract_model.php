@@ -11,7 +11,7 @@ Class Contract_model extends CI_Model{
     public function __construct() {
         
         parent::__construct();
-        
+        error_reporting(0);
     }
     /***************************************************************************
      * @create_contract(), funcion para crear un contrato entre los usuarios.
