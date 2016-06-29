@@ -15,7 +15,7 @@ Class Job extends REST_Controller{
         parent::__construct();
         
         $this->load->model("job_model", "jobModel");
-        
+        error_reporting(0);
     }
     
     /***************************************************************************

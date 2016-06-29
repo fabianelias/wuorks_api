@@ -15,7 +15,7 @@ Class Company extends REST_Controller{
         parent::__construct();
         
         $this->load->model("company_model", "companyModel");
-        
+        error_reporting(0);
     }
     
     /***************************************************************************

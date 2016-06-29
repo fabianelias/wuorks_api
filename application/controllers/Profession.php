@@ -15,7 +15,7 @@ Class Profession extends REST_Controller{
          parent::__construct();
          
          $this->load->model("profession_model", "professionModel");
-         
+         error_reporting(0);
     }
     
     /***************************************************************************

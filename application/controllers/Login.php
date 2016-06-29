@@ -15,7 +15,7 @@ Class Login extends REST_Controller{
         parent::__construct();
         
         $this->load->model("login_model","login");
-        
+        error_reporting(0);
     }
     
     
