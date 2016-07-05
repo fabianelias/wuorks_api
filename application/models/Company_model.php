@@ -110,7 +110,24 @@ Class Company_model extends CI_Model{
             $comuna = $query22->row()->nombre;
             
             
-            $this->db->select("*");
+            //$this->db->select("*");
+            $this->db->select("r.id_rating,
+                                   r.title,
+                                   r.comment,
+                                   r.rate_type,
+                                   r.user_rating,
+                                   r.id_profession,
+                                   r.id_company,
+                                   r.name_user,
+                                   r.id_user,
+                                   r.key_rating,
+                                   r.create_time,
+                                   ui.avatar,
+                                   u.username
+                                   ");
+            $this->db->join("ws_user as u","u.wuorks_key = r.id_user","left");
+            $this->db->join("ws_user_information as ui","ui.id_user = u.id_user","left");
+            
             $this->db->where("id_company", $row[0]["id_company"]);
             $query2 = $this->db->get("ws_rating");
                 
@@ -133,7 +150,6 @@ Class Company_model extends CI_Model{
                 return $infoCompany;
                 
         }else{
-            
             return  false;
         }
     }
@@ -169,10 +185,27 @@ Class Company_model extends CI_Model{
                 $res_com  = $this->db->get("comunas");
                 $comuna = $res_com->row()->nombre;
                 
-                $this->db->select("*");
+                /*$this->db->select("*");
+                $this->db->where("id_company", $row["id_company"]);*/
+                $this->db->select("r.id_rating,
+                                   r.title,
+                                   r.comment,
+                                   r.rate_type,
+                                   r.user_rating,
+                                   r.id_profession,
+                                   r.id_company,
+                                   r.name_user,
+                                   r.id_user,
+                                   r.key_rating,
+                                   r.create_time,
+                                   ui.avatar,
+                                   u.username
+                                   ");
+                $this->db->join("ws_user as u","u.wuorks_key = r.id_user","left");
+                $this->db->join("ws_user_information as ui","ui.id_user = u.id_user","left");
                 $this->db->where("id_company", $row["id_company"]);
                 $this->db->order_by("id_rating","desc");
-                $query2 = $this->db->get("ws_rating");
+                $query2 = $this->db->get("ws_rating as r");
                 
                 $rating = $query2->result_array();
                 
@@ -201,9 +234,7 @@ Class Company_model extends CI_Model{
             }
             return $infoCompany;
         }else{
-            
             return false;
-            
         }
         
     }

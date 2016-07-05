@@ -58,7 +58,7 @@ Class Email_templates{
 											<td width="100%" height="30"></td>
 										</tr>
 										<tr>
-											<td width="100%"><span object="image-editable"><img editable="true" src="http://www.wuorks.cl/asset/images-wuorks/logo-opcion-dos.png" width="155" alt="" border="0" mc:edit="39"></span></td>
+											<td width="100%"><span object="image-editable"><img editable="true" src="https://www.wuorks.cl/asset/img/logo-cl.png" width="155" alt="" border="0" mc:edit="39"></span></td>
 										</tr>
 										<tr>
 											<td width="100%" height="30"></td>
@@ -330,7 +330,7 @@ Class Email_templates{
 											<td width="100%" height="30"></td>
 										</tr>
 										<tr>
-											<td width="100%"><span object="image-editable"><img editable="true" src="http://www.wuorks.cl/asset/images-wuorks/logo-opcion-dos.png" width="155" alt="" border="0" mc:edit="39"></span></td>
+											<td width="100%"><span object="image-editable"><img editable="true" src="https://www.wuorks.cl/asset/img/logo-cl.png" width="155" alt="" border="0" mc:edit="39"></span></td>
 										</tr>
 										<tr>
 											<td width="100%" height="30"></td>

@@ -86,11 +86,31 @@ Class Profession_model extends CI_Model{
         if($query->num_rows() > 0){
             
             foreach ($query->result_array() as $row){
-                
+                /*
                 $this->db->select("*");
                 $this->db->where("id_profession", $row["id_profession"]);
                 $this->db->order_by("id_rating","desc");
                 $query2 = $this->db->get("ws_rating");
+                */
+                $this->db->select("r.id_rating,
+                                   r.title,
+                                   r.comment,
+                                   r.rate_type,
+                                   r.user_rating,
+                                   r.id_profession,
+                                   r.id_company,
+                                   r.name_user,
+                                   r.id_user,
+                                   r.key_rating,
+                                   r.create_time,
+                                   ui.avatar,
+                                   u.username
+                                   ");
+                $this->db->join("ws_user as u","u.wuorks_key = r.id_user","left");
+                $this->db->join("ws_user_information as ui","ui.id_user = u.id_user","left");
+                $this->db->where("id_profession", $row["id_profession"]);
+                $this->db->order_by("id_rating","desc");
+                $query2 = $this->db->get("ws_rating as r");
                 
                 $rating = $query2->result_array();
                 
@@ -138,9 +158,25 @@ Class Profession_model extends CI_Model{
             
             foreach ($query->result_array() as $row){
                 
-                $this->db->select("*");
-                $this->db->where("id_profession", $row["id_ profession"]);
-                $query2 = $this->db->get("ws_rating");
+                $this->db->select("r.id_rating,
+                                   r.title,
+                                   r.comment,
+                                   r.rate_type,
+                                   r.user_rating,
+                                   r.id_profession,
+                                   r.id_company,
+                                   r.name_user,
+                                   r.id_user,
+                                   r.key_rating,
+                                   r.create_time,
+                                   ui.avatar,
+                                   u.username
+                                   ");
+                $this->db->join("ws_user as u","u.wuorks_key = r.id_user","left");
+                $this->db->join("ws_user_information as ui","ui.id_user = u.id_user","left");
+                $this->db->where("id_profession", $row["id_profession"]);
+                $this->db->order_by("id_rating","desc");
+                $query2 = $this->db->get("ws_rating as r");
                 
                 $rating = $query2->result_array();
                 
