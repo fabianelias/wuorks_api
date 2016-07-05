@@ -142,7 +142,8 @@ Class Contracts extends REST_Controller{
                 "user_rating" => $rating["user_rating"],
                 "name_user"   => $rating["name_user"],
                 "id_profession" => $rating["id_profession"],
-                "id_company"    => $rating["id_company"]
+                "id_company"    => $rating["id_company"],
+                "id_user"       => $rating["id_user"]
         );
         $key_contract = $rating["id_contract"];
         
