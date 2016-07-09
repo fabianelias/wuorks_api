@@ -211,4 +211,25 @@ Class User extends REST_Controller{
         }
     }
     
+    /***************************************************************************
+     * @tutoOk; cambia el estado a 1, el tuto fue visto
+     **************************************************************************/
+    public function tuto_off_get(){
+        
+        $id_user = $this->get("id_user");
+        
+        $res = $this->userModel->tuto_off($id_user);
+        
+        if($res){
+            
+            $this->response($res, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+        
+    }
+    
 }

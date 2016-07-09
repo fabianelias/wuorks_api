@@ -217,4 +217,16 @@ Class User_model extends CI_Model{
             }
             return $key_job;
     }
+    
+    /***************************************************************************
+     * @tuto_off()
+     **************************************************************************/
+    public function  tuto_off($id_user){
+        
+        $data = array("tuto"=>1);
+        
+        $this->db->where("id_user",$id_user);
+        return $this->db->update("ws_user",$data);
+        
+    }
 }
