@@ -229,4 +229,10 @@ Class User_model extends CI_Model{
         return $this->db->update("ws_user",$data);
         
     }
+    
+    public function edit_user_tuto($data,$id_user){
+        
+        $this->db->where("id_user",$id_user);
+        return $this->db->update("ws_user_information",$data);
+    }
 }
