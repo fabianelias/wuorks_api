@@ -211,4 +211,55 @@ Class User extends REST_Controller{
         }
     }
     
+    /***************************************************************************
+     * @tutoOk; cambia el estado a 1, el tuto fue visto
+     **************************************************************************/
+    public function tuto_off_get(){
+        
+        $id_user = $this->get("id_user");
+        
+        $res = $this->userModel->tuto_off($id_user);
+        
+        if($res){
+            
+            $this->response($res, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+        
+    }
+    /***************************************************************************
+     * @tutoOk; actualiza info importante del perfil en el tutorial
+     **************************************************************************/
+    public function edit_user_tuto_post(){
+        
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+	
+	parse_str(file_get_contents('php://input'), $data);
+	
+        }
+        
+        $datas = array(
+            "address" => $data['address'],
+            "region"  => $data['region'],
+            "commune" => $data['commune'],
+            "cell_phone_number" => $data['telefono'],
+        );
+        $id_user = $data["id_user"];
+        
+        $res = $this->userModel->edit_user_tuto($datas,$id_user);
+        
+        if($res){
+            
+            $this->response($res, 200);
+            
+        }else{
+            
+            $this->response(NULL, 400);
+            
+        }
+    }
 }
