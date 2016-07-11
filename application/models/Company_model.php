@@ -129,7 +129,7 @@ Class Company_model extends CI_Model{
             $this->db->join("ws_user_information as ui","ui.id_user = u.id_user","left");
             
             $this->db->where("id_company", $row[0]["id_company"]);
-            $query2 = $this->db->get("ws_rating");
+            $query2 = $this->db->get("ws_rating as r");
                 
             $rating = $query2->result_array();
                 
