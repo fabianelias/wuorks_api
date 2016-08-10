@@ -30,7 +30,9 @@ Class User_model extends CI_Model{
                                 $birth_date,
                                 $gender,
                                // $avatar,
-                                $id_user){
+                                $id_user,
+                                $lat,
+                                $lng){
         
         //Crear array
         
@@ -47,6 +49,8 @@ Class User_model extends CI_Model{
             "birth_date"        => $birth_date,
             "gender"            => $gender,
            // "avatar"            => $avatar
+            "lat"               => $lat,
+            "lng"               => $lng
         );
         
         $this->db->where("id_user", $id_user);
