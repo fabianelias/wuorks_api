@@ -55,6 +55,13 @@ Class User extends REST_Controller{
         //$avatar            = $user["avatar"];
         $id_user           = $user["id_user"];
         
+        $coor1 = $user["coor"];
+        $coor1 = str_replace("(", "", $coor1);
+        $coor1 = str_replace(")", "", $coor1);
+        $coor1 = explode(",", $coor1);
+        
+        $lat = trim($coor1[0]);
+        $lng = trim($coor1[1]);
         
         $edit = $this->userModel->edit_user( $name,
                                              $last_name_p,  
@@ -68,7 +75,9 @@ Class User extends REST_Controller{
                                              $birth_date,
                                              $gender,
                                              //$avatar,
-                                             $id_user);
+                                             $id_user,
+                                             $lat,
+                                             $lng);
         
         if($edit){
             
@@ -242,12 +251,24 @@ Class User extends REST_Controller{
 	
         }
         
+        $coor1 = $data["coor"];
+        $coor1 = str_replace("(", "", $coor1);
+        $coor1 = str_replace(")", "", $coor1);
+        $coor1 = explode(",", $coor1);
+        
+        $lat = trim($coor1[0]);
+        $lng = trim($coor1[1]);
+        
+        
         $datas = array(
             "address" => $data['address'],
             "region"  => $data['region'],
             "commune" => $data['commune'],
             "cell_phone_number" => $data['telefono'],
+            "lat"  => $lat,
+            "lng"  => $lng
         );
+        
         $id_user = $data["id_user"];
         
         $res = $this->userModel->edit_user_tuto($datas,$id_user);

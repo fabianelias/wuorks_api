@@ -28,7 +28,9 @@ Class Company_model extends CI_Model{
                                     $key_company,
                                     $id_user,
                                     $region,
-                                    $commune){
+                                    $commune,
+                                    $lat,
+                                    $lng){
         
         //Crear array
         
@@ -40,7 +42,9 @@ Class Company_model extends CI_Model{
             "key_company"         => $key_company,
             "id_user"             => $id_user,
             "region"              => $region,
-            "commune"             => $commune
+            "commune"             => $commune,
+            "lat"                 => $lat,
+            "lng"                 => $lng
         );
         
         $query = $this->db->insert("ws_company", $company);
@@ -61,7 +65,9 @@ Class Company_model extends CI_Model{
                                   //$key_company,
                                   $id_user,
                                   $region,
-                                  $commune
+                                  $commune,
+                                  $lat,
+                                  $lng
                                   ){
         
         $company = array(
@@ -70,7 +76,9 @@ Class Company_model extends CI_Model{
             "address"             => $address,
             "company_category"    => $company_category,
             "commune"             => $commune,
-            "region"              => $region
+            "region"              => $region,
+            "lat"                 => $lat,
+            "lng"                 => $lng
         );
         
         
@@ -144,7 +152,9 @@ Class Company_model extends CI_Model{
                     "commune"             => $row[0]["commune"],
                     "rating"              => $rating,
                     "region_nom"          => $region,
-                    "comuna_nom"          => $comuna
+                    "comuna_nom"          => $comuna,
+                    "lat"                 => $row[0]["lat"],
+                    "lng"                 => $row[0]["lng"]
                 );
                 
                 return $infoCompany;

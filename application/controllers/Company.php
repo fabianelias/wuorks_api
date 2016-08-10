@@ -48,6 +48,14 @@ Class Company extends REST_Controller{
         $region              = $company["region"];
         $commune             = $company["commune"];
         
+        $coor1 = $company["coor"];
+        $coor1 = str_replace("(", "", $coor1);
+        $coor1 = str_replace(")", "", $coor1);
+        $coor1 = explode(",", $coor1);
+        
+        $lat = trim($coor1[0]);
+        $lng = trim($coor1[1]);
+        
         $create = $this->companyModel->create_company($company_name,
                                                       $company_description,
                                                       $address,
@@ -55,7 +63,9 @@ Class Company extends REST_Controller{
                                                       $key_company,
                                                       $id_user,
                                                       $region,
-                                                      $commune);
+                                                      $commune, 
+                                                      $lat,
+                                                      $lng);
         
         if($create){
             
@@ -120,6 +130,14 @@ Class Company extends REST_Controller{
         $region              = $company["region"];
         $commune             = $company["commune"];
         
+        $coor1 = $company["coor"];
+        $coor1 = str_replace("(", "", $coor1);
+        $coor1 = str_replace(")", "", $coor1);
+        $coor1 = explode(",", $coor1);
+        
+        $lat = trim($coor1[0]);
+        $lng = trim($coor1[1]);
+        
         $edit = $this->companyModel->edit_company( $company_name,
                                                    $company_description,
                                                    $address,
@@ -127,7 +145,9 @@ Class Company extends REST_Controller{
                                                    //$key_company,
                                                    $id_user,
                                                    $region,
-                                                   $commune);
+                                                   $commune,
+                                                   $lat,
+                                                   $lng);
         
         if($edit){
             
