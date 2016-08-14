@@ -131,7 +131,8 @@ Class Profession_model extends CI_Model{
                     "address"         => $row["address"],
                     "commune"         => $row["commune"],
                     "region"          => $row["region"],
-                    
+                    "lat"             => $row["lat"],
+                    "lng"             => $row["lng"]
                 );
                 
                 

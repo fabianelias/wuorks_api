@@ -57,9 +57,10 @@ Class Search_model extends CI_Model{
         $this->db->select('*');
         $this->db->join('ws_user_information as ui', "p.id_user = ui.id_user", "left");
         $this->db->join("ws_user as u", "ui.id_user = u.id_user", "left");
+        $this->db->where('ui.region',$region);
         $this->db->like('name_profession', $wuork_area,'both');
         $this->db->or_like('job_description', $wuork_area,'both');
-        $this->db->where('ui.region',$region);
+        
         
         $query = $this->db->get("ws_profession as p");
         
@@ -98,7 +99,9 @@ Class Search_model extends CI_Model{
                     "address"         => $row["address"],
                     "commune"         => $comuna,//$row["commune"],
                     "region"          => $region,//$row["region"],
-                    "type"            => 1
+                    "type"            => 1,
+                    "lat"             => $row["lat"],
+                    "lng"             => $row["lng"]
                 );
                 
                 
@@ -129,7 +132,7 @@ Class Search_model extends CI_Model{
         $res_reg = $this->db->get("regiones");*/
         
         $this->db->select('u.username, c.company_category, c.company_description, u.wuorks_key, c.key_company, ui.avatar,
-                           c.address, c.commune, c.region,c.id_company');
+                           c.address, c.commune, c.region,c.id_company,c.lat,c.lng');
         $this->db->join('ws_user_information as ui', "c.id_user = ui.id_user", "left");
         $this->db->join("ws_user as u", "ui.id_user = u.id_user", "left");
         $this->db->like('c.company_category', $wuork_area,'both');
@@ -172,7 +175,9 @@ Class Search_model extends CI_Model{
                     "address"         => $row["address"],
                     "commune"         => $comuna,//$row["commune"],
                     "region"          => $region,//$row["region"],
-                    "type"            => 2
+                    "type"            => 2,
+                    "lat"             => $row["lat"],
+                    "lng"             => $row["lng"]
                 );
                 
             }
