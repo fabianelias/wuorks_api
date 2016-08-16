@@ -236,8 +236,9 @@ Class Company_model extends CI_Model{
                     "rating"          => $rating,
                     "address"         => $row["address"],
                     "commune"         => $comuna,//$row["commune"],
-                    "region"          => $region//$row["region"],
-                    
+                    "region"          => $region,//$row["region"],
+                    "lat"             => $row["lat"],
+                    "lng"             => $row["lng"]
                 );
                 
                 
